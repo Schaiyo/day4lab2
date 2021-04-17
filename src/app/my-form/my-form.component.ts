@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-my-form',
@@ -12,15 +12,19 @@ export class MyFormComponent implements OnInit {
   constructor(private fb: FormBuilder) { 
     this.form = this.fb.group(
       {
-        phoneNo: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
+        phoneNo: [''],
+        email: ['', Validators.email],
+        password: ['', [Validators.required, Validators.minLength(8)]],
+        confirmPassword: ['', Validators.required]
       }
     );
   }
 
   ngOnInit(): void {
+  }
+
+  submitform() {
+    alert(JSON.stringify(this.form.value));
   }
 
 }
